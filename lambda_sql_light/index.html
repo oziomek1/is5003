@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>SQL Wizard</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-147552064-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-147552064-1');
+  </script>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css"/>
+  <!--<link href="css/materialize.css" type="text/css" rel="stylesheet"/>-->
+  <!--<link href="css/style.css" type="text/css" rel="stylesheet"/>-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.css" />
+</head>
+<body>
+  <div id="app">
+    <nav class="light-blue lighten-1" role="navigation">
+      <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">SQL Wizard</a>
+        <ul class="right">
+          <li><a href="https://achievements-prod.firebaseapp.com/#/paths/-LqGUm8_gOs0BzTkffWy">Join course</a></li>
+        </ul>
+
+        <ul id="nav-mobile" class="sidenav">
+          <li><a href="#">Navbar Link</a></li>
+        </ul>
+        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+    <div class="section no-pad-bot" id="index-banner">
+      <div class="container">
+        <br><br>
+        <h1 class="header center orange-text">Start SQL journey</h1>
+        <div class="row center">
+          <h5 class="header col s12 light">Rapid start to become SQL master</h5>
+        </div>
+        <course-component v-bind:value=tasks[0].content v-bind:task-id=tasks[0].content.taskId @handler="evaluateCode"></course-component>
+
+        <div class="row" v-if="task_status > 0">
+          <div class="col m12">
+            <div class="card red lighten-1" v-if="task_status == 1">
+              <div class="card-content">
+                <span class="card-title">Card Title</span>
+                <p>Unfortunately the solution is wrong. Enroll our course and improve your skills!</p>
+              </div>
+              <div class="card-action white">
+                <a href="https://achievements-prod.firebaseapp.com/#/paths/-LqGUm8_gOs0BzTkffWy">Join our crash course!</a>
+              </div>
+            </div>
+            <div class="card green lighten-1" v-if="task_status == 2">
+              <div class="card-content">
+                <span class="card-title">Card Title</span>
+                <p>Awesome! Your solution is correct. Feel free to join our course and improve your skills!</p>
+              </div>
+              <div class="card-action white">
+                <a href="https://achievements-prod.firebaseapp.com/#/paths/-LqGUm8_gOs0BzTkffWy">Join our crash course!</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+      <div class="section">
+
+        <!--   Icon Section   -->
+        <div class="row">
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+              <h5 class="center">Learn SQL by examples</h5>
+
+              <p class="light">Our course favours learning by real world examples to provide most useful knowledge and  valuable skills.</p>
+            </div>
+          </div>
+
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="material-icons">school</i></h2>
+              <h5 class="center">Head start for NUS</h5>
+
+              <p class="light">By carefully selecting exercies course participation allow you to have a head start while applying various courses at NUS.</p>
+            </div>
+          </div>
+
+          <div class="col s12 m4">
+            <div class="icon-block">
+              <h2 class="center light-blue-text"><i class="material-icons">fast_forward</i></h2>
+              <h5 class="center">Easy to work</h5>
+
+              <p class="light">We focused on easy to start design. You can start learning within just few minutes, saving your time an minimizing effort.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <br><br>
+    </div>
+  </div>
+
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l8 s12">
+          <h5 class="white-text">SQL Wizard</h5>
+        </div>
+        <div class="col l4 s12">
+          <p class="grey-text text-lighten-4">IS5003 students - please let us pass the course.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.32.0/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-codemirror@4.0.6/dist/vue-codemirror.min.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script>
+  Vue.use(window.VueCodemirror)
+  var courseComponent = Vue.component('course-component', {
+    props: ['value', 'taskId'],
+    data: function() {
+      return {
+        cmOptions: {
+          lineNumbers: true,
+          readOnly: false,
+          tabMode: "indent",
+          matchBrackets: true,
+          indentUnit: 4,
+          mode: 'sql',
+
+        },
+        answer: '',
+        content: this.value
+      }
+    },
+    methods: {
+      executeCode: function(code) {
+        let post_body = {
+          "userToken": "EXTERNAL", 
+          "editable": { "0": this.content.userInput },
+          "hidden": { "0": this.content.taskId },
+          "shown": { "0": '' }
+        }
+        console.log(JSON.stringify(post_body))
+        fetch('', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin" : "*",
+            "Access-Control-Allow-Credentials" : true
+          },
+          mode: 'no-cors',
+          body: JSON.stringify(post_body)
+        }).then(response => {
+          console.log('response', response);
+          return response.text().then(function (text) {
+            return text ? JSON.parse(text) : {}
+          })
+        }).then(data => {
+          this.result = JSON.parse(JSON.stringify(data))
+          console.log('data', data, this.value);
+          return this.$emit('handler',{data, taskId:this.taskId})
+        }).catch(function(err) {
+          console.log('Error', err);
+        })
+      },
+    },
+    template:
+      `<div class="component-input">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title" align="center">Solve our challenge</span>
+            <p align="center">Select every column from table "ign" using WHERE clause on column "storenum" with condition < "9"</p>
+          </div>
+          <div class="card-action">
+            <codemirror class="inputTextArea" v-model="content.userInput" :options="cmOptions"></codemirror>
+          </div>
+        </div>
+        <div class="row center">
+          <a @click="executeCode(content.userInput)" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
+        </div>
+
+      </div>`
+  })
+  new Vue({
+    el: "#app",
+    data: {
+      tasks: [
+        {
+          name: 'Task 1', 
+          content: {
+            topic: 'SELECT with WHERE',
+            topicDescription: null,
+            taskDescription: null,
+            userInput: "",
+            taskId: '1',
+            output: false
+          },
+        }
+      ],
+      task_status: 0,
+    },
+    components: {
+      courseComponent: courseComponent,
+    },
+    methods: {
+      evaluateCode: function(response) {
+        let {data} = response;
+        console.log('evaluate:data', data, data.isComplete, response);
+        if (data.isComplete) {
+          this.task_status = 2;
+        } else {
+          this.task_status = 1;
+        }
+      }
+    }
+  });
+  </script>
+</body>
+
+<style type="text/css">
+.orange {
+  background-color: #EF7C00 !important;
+}
+
+.orange-text {
+  color: #EF7C00 !important;
+}
+
+.light-blue.lighten-1, .light-blue {
+  background-color: #003D7C !important;
+}
+
+.light-blue-text {
+  color: #003D7C !important;
+}
+</style>
+
+</html>
